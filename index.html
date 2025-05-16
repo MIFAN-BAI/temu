@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>正在跳转...</title>
+  <script>
+    localStorage.clear();
+    sessionStorage.clear();
+    document.cookie = "";
+
+    const params = new URLSearchParams(location.search);
+    const target = params.get("target");
+
+    setTimeout(() => {
+      if (target) {
+        window.location.href = decodeURIComponent(target);
+      } else {
+        document.body.innerText = "未指定跳转目标";
+      }
+    }, 800);
+  </script>
+</head>
+<body>
+  <p>请稍候，正在跳转至 TEMU...</p>
+</body>
+</html>
