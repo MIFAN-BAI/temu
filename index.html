@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <title>正在跳转...</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>跳转中...</title>
   <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const target = urlParams.get("target");
     localStorage.clear();
     sessionStorage.clear();
-    document.cookie = "";
-
-    const params = new URLSearchParams(location.search);
-    const target = params.get("target");
-
-    setTimeout(() => {
-      if (target) {
-        window.location.href = decodeURIComponent(target);
-      } else {
-        document.body.innerText = "未指定跳转目标";
-      }
-    }, 800);
+    document.cookie.split(";").forEach(function(c) {
+      document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    if (target) {
+      window.location.href = decodeURIComponent(target);
+    } else {
+      document.write("未检测到跳转链接参数。");
+    }
   </script>
 </head>
 <body>

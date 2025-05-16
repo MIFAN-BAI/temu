@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TEMU 跳转链接生成器</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; max-width: 600px; margin: auto; }
+    input, button { width: 100%; padding: 0.8em; margin: 0.5em 0; font-size: 1em; }
+    .output { margin-top: 1em; word-break: break-all; background: #f0f0f0; padding: 1em; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>TEMU 跳转链接生成器</h2>
+  <input type="text" id="temuLink" placeholder="粘贴 TEMU 分享链接" />
+  <button onclick="generate()">生成跳转链接</button>
+  <div class="output" id="output"></div>
+
+  <script>
+    function generate() {
+      const raw = document.getElementById("temuLink").value.trim();
+      if (!raw.startsWith("http")) {
+        alert("请输入有效的链接");
+        return;
+      }
+      const base = window.location.origin;
+      const target = encodeURIComponent(raw);
+      const final = `${base}/?target=${target}`;
+      document.getElementById("output").innerText = final;
+    }
+  </script>
+</body>
+</html>
